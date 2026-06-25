@@ -1,0 +1,960 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+  <title>Coalition for Authentic Community Engagement</title>
+  <meta name="description" content="A community-defined standard for how CPS must engage the people it serves.">
+  <meta content="Coalition for Authentic Community Engagement" property="og:site_name">
+  <meta content="website" property="og:type">
+  <meta content="https://authenticengagement.info" property="og:url">
+  <meta content="Coalition for Authentic Community Engagement" property="og:title">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/main.css">
+
+  <style>
+    /* ── Site-level reset additions ── */
+    * { box-sizing: border-box; }
+
+    /* ── Tab navigation ── */
+    .site-nav { background: var(--blue); width: 100%; }
+    .site-nav-inner { max-width: 709px; margin: 0 auto; padding: 0 12px; display: flex; align-items: center; justify-content: space-between; }
+    .site-nav-brand { color: rgba(255,255,255,0.55); font-family: Roboto, sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 14px 0; white-space: nowrap; margin-right: 16px; flex-shrink: 0; display: none; }
+    .nav-tabs { display: flex; overflow-x: auto; }
+    .nav-tab { color: rgba(255,255,255,0.72); font-family: Roboto, sans-serif; font-size: 14px; font-weight: 500; padding: 0 16px; height: 48px; display: flex; align-items: center; border-bottom: 3px solid transparent; cursor: pointer; transition: color .15s, border-color .15s; white-space: nowrap; }
+    .nav-tab:hover { color: #fff; }
+    .nav-tab.active { color: #fff; border-bottom-color: #fff; font-weight: 700; }
+
+    /* ── Page visibility ── */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ── Home hero (banner + definition card) ── */
+    .home-banner { display: flex; flex-direction: column; justify-content: flex-end; align-items: center; position: relative; min-height: 460px; margin-bottom: 180px; }
+    .home-banner__image { position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; }
+    .home-banner__card { position: relative; background: var(--blue); padding: 32px; z-index: 2; border-radius: 8px; bottom: -120px; width: 100%; }
+    .home-banner__card .def-eyebrow { font-family: Roboto, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 12px; }
+    .home-banner__card h1 { color: var(--white); font-size: 32px; line-height: 42px; margin-bottom: 16px; }
+    .home-banner__card .def-text { color: rgba(255,255,255,0.88); font-family: Roboto, sans-serif; font-size: 16px; line-height: 28px; margin-bottom: 10px; }
+    .home-banner__card .def-text b { color: #fff; font-weight: 700; }
+    .home-banner__card .def-credit { font-size: 13px; color: rgba(255,255,255,0.45); font-style: italic; margin-bottom: 0; margin-top: 4px; }
+
+    /* ── Accordion (used inside blue hero card) ── */
+    .acc-wrap { border-top: 1px solid rgba(255,255,255,0.2); margin-top: 24px; }
+    .acc-btn { width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.15); padding: 14px 0; display: flex; align-items: center; justify-content: space-between; cursor: pointer; color: rgba(255,255,255,0.8); font-family: Roboto, sans-serif; font-size: 15px; font-weight: 500; text-align: left; }
+    .acc-btn:hover { color: #fff; }
+    .acc-chevron { color: rgba(255,255,255,0.6); font-size: 16px; transition: transform .25s; flex-shrink: 0; }
+    .acc-chevron.open { transform: rotate(180deg); }
+    .acc-body { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
+    .acc-body.open { max-height: 1200px; }
+    .acc-inner { padding: 16px 0 20px; color: rgba(255,255,255,0.78); font-family: Roboto, sans-serif; font-size: 15px; line-height: 26px; }
+    .acc-inner p { margin-bottom: 10px; }
+    .acc-inner a, .acc-inner .text-link { color: rgba(255,255,255,0.95); cursor: pointer; text-decoration: underline; }
+    .member-pills { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+    .pill { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; padding: 4px 12px; font-size: 13px; color: rgba(255,255,255,0.88); }
+
+    /* ── Quick-nav tiles ── */
+    .nav-tiles { display: flex; border-top: 1px solid #dde5ed; background: #f5f8fa; }
+    .nav-tile { flex: 1; padding: 20px 16px; border-right: 1px solid #dde5ed; cursor: pointer; display: flex; align-items: flex-start; gap: 12px; transition: background .15s; }
+    .nav-tile:last-child { border-right: none; }
+    .nav-tile:hover { background: #e4eef7; }
+    .nav-tile-icon { width: 36px; height: 36px; border-radius: 8px; background: var(--blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+    .nav-tile-icon .icon { color: #fff; font-size: 17px; }
+    .nav-tile-label { font-family: Roboto, sans-serif; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.09em; color: var(--black); margin-bottom: 4px; }
+    .nav-tile-desc { font-size: 13px; color: #5a6a7a; line-height: 1.5; }
+
+    /* ── Content area ── */
+    .content-area { padding: 48px 0; }
+    .section-hed { font-family: Roboto, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--blue); margin-bottom: 20px; padding-bottom: 8px; border-bottom: 2px solid var(--blue); display: inline-block; }
+
+    /* ── News card ── */
+    .news-card { background: #f5f8fa; border: 1px solid #dde5ed; border-radius: 8px; padding: 20px 24px; margin-bottom: 16px; display: flex; gap: 16px; }
+    .news-badge { background: var(--blue); color: #fff; font-family: Roboto, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; padding: 5px 10px; border-radius: 4px; white-space: nowrap; flex-shrink: 0; height: fit-content; }
+    .news-title { font-family: Lora, serif; font-size: 18px; font-weight: 700; color: var(--black); margin-bottom: 8px; line-height: 1.4; }
+    .news-desc { font-family: Roboto, sans-serif; font-size: 15px; color: #3a4a5a; line-height: 1.6; margin-bottom: 8px; }
+    .news-link { font-family: Roboto, sans-serif; font-size: 14px; color: var(--blue); font-weight: 600; display: inline-block; }
+    .news-link:hover { color: var(--blue-dark); }
+
+    /* ── Letter chips ── */
+    .letter-chip { background: #fff; border: 1px solid #dde5ed; border-radius: 6px; padding: 10px 16px; font-family: Roboto, sans-serif; font-size: 14px; color: var(--blue); font-weight: 500; display: inline-flex; align-items: center; gap: 8px; margin-right: 8px; margin-bottom: 8px; transition: background .15s; text-decoration: none; }
+    .letter-chip:hover { background: #e6f2fa; color: var(--blue-dark); }
+
+    /* ── CTA strip ── */
+    .cta-strip { background: var(--blue); padding: 40px 12px; }
+    .cta-strip-inner { max-width: 709px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .cta-strip-text { color: rgba(255,255,255,0.88); font-family: Roboto, sans-serif; font-size: 16px; line-height: 26px; }
+    .cta-strip-text strong { font-family: Lora, serif; font-size: 24px; color: #fff; display: block; margin-bottom: 6px; }
+    .cta-btn { background: #fff; color: var(--blue); font-family: Roboto, sans-serif; font-size: 14px; font-weight: 700; padding: 12px 24px; border-radius: 6px; border: none; cursor: pointer; white-space: nowrap; text-decoration: none; display: inline-block; }
+    .cta-btn:hover { background: #f0f8ff; color: var(--blue-dark); }
+
+    /* ── Sub-hero (inner pages) ── */
+    .sub-hero { background: var(--blue); padding: 40px 0; }
+    .sub-hero .breadcrumb { font-family: Roboto, sans-serif; font-size: 13px; color: rgba(255,255,255,0.55); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .sub-hero .breadcrumb .bc-link { color: rgba(255,255,255,0.8); cursor: pointer; }
+    .sub-hero .breadcrumb .bc-link:hover { text-decoration: underline; }
+    .sub-hero h1 { color: var(--white); margin-bottom: 12px; }
+    .sub-hero p { color: rgba(255,255,255,0.8); font-family: Roboto, sans-serif; font-size: 16px; line-height: 28px; margin-bottom: 0; max-width: 580px; }
+
+    /* ── Step rows (Process page) ── */
+    .step-row { display: flex; gap: 24px; margin-bottom: 36px; padding-bottom: 36px; border-bottom: 1px solid #dde5ed; }
+    .step-row:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+    .step-num { width: 44px; height: 44px; border-radius: 50%; background: var(--blue); color: #fff; font-family: Lora, serif; font-size: 18px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 4px; }
+    .step-tag { display: inline-block; background: #e6f2fa; color: var(--blue); font-family: Roboto, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.07em; text-transform: uppercase; padding: 3px 10px; border-radius: 4px; margin-bottom: 10px; }
+    .step-title { font-family: Lora, serif; font-size: 20px; font-weight: 700; color: var(--black); margin-bottom: 10px; line-height: 1.35; }
+    .step-body { font-family: Roboto, sans-serif; font-size: 16px; color: #2a3a4a; line-height: 28px; }
+    .closing-bar { background: #f5f8fa; border-left: 4px solid var(--blue); padding: 18px 22px; margin-top: 28px; font-family: Roboto, sans-serif; font-size: 16px; color: #3a4a5a; line-height: 1.7; font-style: italic; }
+
+    /* ── Spectrum / Standards tables ── */
+    .spectrum-intro { font-family: Roboto, sans-serif; font-size: 16px; color: #2a3a4a; line-height: 28px; margin-bottom: 24px; }
+    .table-wrap { overflow-x: auto; margin-bottom: 32px; }
+    .data-table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    .data-table th { background: var(--black); color: #fff; font-family: Roboto, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 12px 14px; text-align: left; white-space: nowrap; }
+    .data-table th.accent-col { background: var(--blue); }
+    .data-table td { padding: 11px 14px; border-bottom: 1px solid #e8edf2; vertical-align: top; color: #2a3a4a; line-height: 1.6; font-family: Roboto, sans-serif; }
+    .data-table tr:nth-child(even) td { background: #f5f8fa; }
+    .data-table .row-label { font-size: 11px; font-weight: 700; color: #5a6a7a; text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; }
+
+    /* Recommendation badges */
+    .rec-badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-family: Roboto, sans-serif; font-size: 12px; font-weight: 700; white-space: nowrap; }
+    .rec-core { background: var(--black); color: #fff; }
+    .rec-include { background: #d6f0fb; color: #004a80; }
+    .rec-context { background: #fef3cd; color: #7a5000; }
+    .rec-optional { background: #ebebeb; color: #5a5a5a; }
+
+    /* Domain tabs */
+    .domain-tabs { display: flex; gap: 0; border-bottom: 2px solid #dde5ed; margin-bottom: 20px; overflow-x: auto; }
+    .domain-tab { padding: 10px 20px; font-family: Roboto, sans-serif; font-size: 14px; font-weight: 500; color: #5a6a7a; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; white-space: nowrap; }
+    .domain-tab:hover { color: var(--black); }
+    .domain-tab.active { color: var(--black); border-bottom-color: var(--blue); font-weight: 700; }
+    .domain-panel { display: none; }
+    .domain-panel.active { display: block; }
+    .domain-desc { background: #f5f8fa; border: 1px solid #dde5ed; border-radius: 6px; padding: 14px 18px; font-family: Roboto, sans-serif; font-size: 14px; color: #3a4a5a; line-height: 1.6; margin-bottom: 16px; font-style: italic; }
+
+    /* Reach badges */
+    .reach-high { background: #d6f0fb; color: #004a80; font-weight: 700; font-size: 13px; border-radius: 4px; padding: 3px 8px; display: inline-block; }
+    .reach-mod { background: #d8f0d8; color: #1a4a1a; font-weight: 700; font-size: 13px; border-radius: 4px; padding: 3px 8px; display: inline-block; }
+    .reach-low { background: #fef3cd; color: #7a5000; font-weight: 600; font-size: 13px; border-radius: 4px; padding: 3px 8px; display: inline-block; }
+    .reach-qual { background: #f0e8f8; color: #5a2a8a; font-weight: 600; font-size: 13px; border-radius: 4px; padding: 3px 8px; display: inline-block; }
+    .reach-na { color: #bbb; font-size: 13px; }
+    .reach-note { font-family: Roboto, sans-serif; font-size: 12px; color: #5a6a7a; margin-top: 3px; display: block; }
+
+    /* Legend key */
+    .key-box { background: #f5f8fa; border: 1px solid #dde5ed; border-radius: 6px; padding: 14px 18px; margin-bottom: 20px; display: flex; gap: 20px; flex-wrap: wrap; }
+    .key-item { display: flex; align-items: center; gap: 8px; font-family: Roboto, sans-serif; font-size: 13px; color: #3a4a5a; }
+    .key-swatch { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; }
+
+    /* Level badges (spectrum) */
+    .level-badge { display: inline-block; padding: 3px 10px; border-radius: 12px; font-family: Roboto, sans-serif; font-size: 12px; font-weight: 700; }
+    .level-listen { background: #e6f2fa; color: #004a80; }
+    .level-inform { background: #e8f4e8; color: #1a4a1a; }
+    .level-consult { background: #fef3cd; color: #7a5000; }
+    .level-involve { background: #f0e8f8; color: #5a2a8a; }
+    .level-collab { background: #ffe8e8; color: #8a0000; }
+    .level-empower { background: var(--blue); color: #fff; }
+
+    /* About page */
+    .about-section { margin-bottom: 36px; padding-bottom: 36px; border-bottom: 1px solid #dde5ed; }
+    .about-section:last-child { border-bottom: none; }
+    .about-body { font-family: Roboto, sans-serif; font-size: 16px; color: #2a3a4a; line-height: 28px; }
+    .about-body p { margin-bottom: 14px; }
+    .letter-block { background: #f5f8fa; border-left: 4px solid var(--blue); border-radius: 0 6px 6px 0; padding: 16px 20px; margin-bottom: 16px; }
+    .letter-block-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; margin-bottom: 8px; }
+    .letter-block-title { font-family: Lora, serif; font-size: 17px; font-weight: 700; color: var(--black); margin-bottom: 0; }
+    .letter-block-date { font-family: Roboto, sans-serif; font-size: 13px; color: #5a6a7a; white-space: nowrap; flex-shrink: 0; margin-top: 4px; }
+    .letter-block-desc { font-family: Roboto, sans-serif; font-size: 14px; color: #3a4a5a; line-height: 1.6; margin-bottom: 0; }
+    .dl-btns { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .dl-btn { background: var(--blue); color: #fff; border: none; border-radius: 4px; padding: 8px 14px; font-family: Roboto, sans-serif; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 6px; text-decoration: none; }
+    .dl-btn:hover { background: var(--blue-dark); color: #fff; }
+
+    /* Members */
+    .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; margin-top: 20px; }
+    .member-card { background: #f5f8fa; border: 1px solid #dde5ed; border-radius: 6px; padding: 14px; font-family: Roboto, sans-serif; font-size: 13px; font-weight: 500; color: var(--black); text-align: center; line-height: 1.4; display: flex; align-items: center; justify-content: center; min-height: 56px; }
+    .member-card.founding { border-color: var(--blue); background: #e6f2fa; }
+    .founding-note { font-family: Roboto, sans-serif; font-size: 12px; color: #5a6a7a; margin-top: 12px; display: flex; align-items: center; gap: 8px; }
+    .founding-swatch { width: 12px; height: 12px; border-radius: 2px; background: #e6f2fa; border: 1px solid var(--blue); flex-shrink: 0; }
+
+    /* Site footer */
+    .site-footer { background: var(--black); padding: 20px 12px; }
+    .site-footer-inner { max-width: 709px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .footer-copy { font-family: Roboto, sans-serif; font-size: 13px; color: rgba(255,255,255,0.4); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-link { font-family: Roboto, sans-serif; font-size: 13px; color: rgba(255,255,255,0.5); cursor: pointer; }
+    .footer-link:hover { color: rgba(255,255,255,0.9); }
+
+    @media (max-width: 640px) {
+      .home-banner { margin-bottom: 240px; }
+      .home-banner__card { bottom: -180px; }
+      .nav-tiles { flex-direction: column; }
+      .nav-tile { border-right: none; border-bottom: 1px solid #dde5ed; }
+      .cta-strip-inner { flex-direction: column; }
+      .news-card { flex-direction: column; gap: 10px; }
+      .step-row { flex-direction: column; gap: 12px; }
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ══ TAB NAVIGATION ══ -->
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <div class="nav-tabs">
+      <div class="nav-tab active" onclick="showPage('home', this)">Home</div>
+      <div class="nav-tab" onclick="showPage('process', this)">Process</div>
+      <div class="nav-tab" onclick="showPage('standards', this)">Standards</div>
+      <div class="nav-tab" onclick="showPage('about', this)">About</div>
+      <div class="nav-tab" onclick="showPage('members', this)">Members</div>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HOME PAGE ══ -->
+<div id="page-home" class="page active">
+
+  <div class="page-content">
+    <div class="home-banner">
+      <img class="home-banner__image" src="images/IMG_4283.jpg" alt="Coalition for Authentic Community Engagement">
+      <div class="wrapper-small wrapper-padding">
+        <div class="home-banner__card">
+          <div class="def-eyebrow">Coalition for Authentic Community Engagement — March 2026</div>
+          <h1>A community-defined standard for how CPS must engage the people it serves.</h1>
+          <p class="def-text">
+            <b>Authentic Community Engagement</b> is a genuine, inclusive, and ongoing partnership between school leaders and community members that values diverse voices and lived experiences. It ensures accessible, culturally responsive communication and removes barriers to participation. Engagement involves broad stakeholder involvement — especially early in the process — with meaningful two-way communication, transparency, and accountability. It is deliberate about engaging a sufficiently broad and representative group of stakeholders to ensure that <b>no single political, institutional, or special interest group is able to dominate or steer the process toward its own agenda.</b>
+          </p>
+          <p class="def-text">
+            Decision makers actively listen, act on feedback, and translate community input into <b>real influence over decisions — not just acknowledgment.</b> They share clear outcomes, maintaining trust through follow-through and public accountability. Engagement is sustained beyond crises or elections, driven by community priorities, and creates safe spaces where all feel welcomed and empowered. Ultimately, it fosters shared decision-making and collective action to support student success and community well-being.
+          </p>
+          <p class="def-credit">Coalition for Authentic Community Engagement — Adopted March 2026</p>
+
+          <div class="acc-wrap">
+            <div>
+              <button class="acc-btn" onclick="toggleAcc('why')">
+                About this definition — who created it and why
+                <span class="icon-chevron-down acc-chevron" id="ch-why" aria-hidden="true"></span>
+              </button>
+              <div class="acc-body" id="ab-why">
+                <div class="acc-inner">
+                  <p>This definition was developed through a community-led input process conducted by the Coalition for Authentic Community Engagement (CACE) in partnership with Kids First Chicago. It reflects direct community voice from 29 respondents — 16 English handwritten surveys, 4 Spanish handwritten surveys, and 9 digital responses — collected from educators, parents, community members, and advocates across Chicago.</p>
+                  <p>It was adopted in March 2026 in response to a sustained pattern of CPS decisions made without adequate community involvement. This is not aspirational language — it is an accountability standard the Coalition holds the Board and district to in any engagement process. <span class="text-link" onclick="navTo('about')">Read more on the About page →</span></p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button class="acc-btn" onclick="toggleAcc('members')">
+                Coalition members
+                <span class="icon-chevron-down acc-chevron" id="ch-members" aria-hidden="true"></span>
+              </button>
+              <div class="acc-body" id="ab-members">
+                <div class="acc-inner">
+                  <p>Over thirty Chicago community and education organizations have united to demand genuine community involvement in CPS policymaking. <span class="text-link" onclick="navTo('members')">View all members →</span></p>
+                  <div class="member-pills">
+                    <span class="pill">Kids First Chicago</span>
+                    <span class="pill">Chicago Urban League</span>
+                    <span class="pill">Instituto del Progreso Latino</span>
+                    <span class="pill">Pilsen Neighbors Community Council</span>
+                    <span class="pill">Noble Schools</span>
+                    <span class="pill">Hamdard Health Alliance</span>
+                    <span class="pill">Hanul Family Alliance</span>
+                    <span class="pill">Little Village Community Council</span>
+                    <span class="pill">National Parents Union</span>
+                    <span class="pill">Association House of Chicago</span>
+                    <span class="pill">The Resurrection Project</span>
+                    <span class="pill">Together Chicago</span>
+                    <span class="pill">Chinese American Service League</span>
+                    <span class="pill">+ more</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick-nav tiles -->
+    <div class="nav-tiles wrapper-small wrapper-padding" style="max-width:709px;margin:0 auto;">
+      <div class="nav-tile" onclick="navTo('process')">
+        <div class="nav-tile-icon"><span class="icon-checkmark icon"></span></div>
+        <div>
+          <div class="nav-tile-label">Engagement Process</div>
+          <div class="nav-tile-desc">The five steps CPS must follow for authentic engagement</div>
+        </div>
+      </div>
+      <div class="nav-tile" onclick="navTo('standards')">
+        <div class="nav-tile-icon"><span class="icon-user icon"></span></div>
+        <div>
+          <div class="nav-tile-label">Stakeholder Standards</div>
+          <div class="nav-tile-desc">Who must be included, and at what scale, for each decision type</div>
+        </div>
+      </div>
+      <div class="nav-tile" onclick="navTo('about')">
+        <div class="nav-tile-icon"><span class="icon-compass2 icon"></span></div>
+        <div>
+          <div class="nav-tile-label">About the Coalition</div>
+          <div class="nav-tile-desc">Who we are, why we formed, and our letters to CPS leadership</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Latest news + Letters -->
+    <div class="wrapper-small wrapper-padding content-area">
+      <div class="section-hed">Latest from the Coalition</div>
+      <div class="news-card">
+        <div class="news-badge">Spring 2026</div>
+        <div>
+          <p class="news-title">Protecting Student Learning in the Era of Immigration Enforcement</p>
+          <p class="news-desc">CACE and Kids First Chicago released a new report outlining recommendations to ensure students can get safely to and from school amid a new era of federal immigration enforcement activity in Chicago neighborhoods.</p>
+          <a href="https://kidsfirstchicago.org/publications/safepassage" class="news-link">Read the report →</a>
+        </div>
+      </div>
+
+      <div style="margin-top:36px;">
+        <div class="section-hed">Coalition Letters to CPS Leadership</div>
+        <p style="font-size:14px;color:#5a6a7a;margin-bottom:14px;font-family:Roboto,sans-serif"><em>Available in English, Spanish, and Simplified Chinese</em></p>
+        <div>
+          <a href="documents/202402-Coalition-Letter-to-Mayor-Johnson-on-Board-Resolution-Translations.pdf" class="letter-chip">
+            <span class="icon-folder-download" aria-hidden="true"></span> Feb. 2024 Letter
+          </a>
+          <a href="documents/202409-Coalition-Letter-to-CPS-Board-Translations.pdf" class="letter-chip">
+            <span class="icon-folder-download" aria-hidden="true"></span> Sept. 2024 Letter
+          </a>
+          <a href="documents/20241115-CACE-Statement-on-Nov-ESB-Elections-and-Opportunity-Ahead.pdf" class="letter-chip">
+            <span class="icon-folder-download" aria-hidden="true"></span> Nov. 2024 Statement
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Member logos -->
+    <div class="wrapper-small wrapper-padding" style="margin-bottom:48px;">
+      <div class="logos">
+        <a href="https://acog-chicago.org/" target="_blank"><img src="images/apostolic-church-of-god.png" alt="Apostolic Church of God"></a>
+        <a href="https://www.associationhouse.org/" target="_blank"><img src="images/association-house-of-chicago.png" alt="Association House of Chicago"></a>
+        <a href="https://www.buildchicago.org/" target="_blank"><img src="images/build-inc.png" alt="BUILD Inc."></a>
+        <a href="https://caslservice.org/" target="_blank"><img src="images/casl.png" alt="CASL"></a>
+        <a href="https://chiul.org/" target="_blank"><img src="images/chicago-urban-league.png" alt="Chicago Urban League"></a>
+        <a href="https://cbcacchicago.org/" target="_blank"><img src="images/coallition-for-a-better-chinese-american-community.png" alt="Coalition for a Better Chinese American Community"></a>
+        <a href="https://cpsparentsforbuses.softr.app/" target="_blank"><img src="images/cps-parents-for-buses.jpg" alt="CPS Parents for Buses"></a>
+        <a href="https://www.education-community-committee.org/" target="_blank"><img src="images/education-community-committee.png" alt="Education Community Committee"></a>
+        <a href="https://saintsabina.org/" target="_blank"><img src="images/faith-community-of-saint-sabina.png" alt="Faith Community of Saint Sabina"></a>
+        <a href="https://saintsabina.org/" target="_blank"><img src="images/father-michael-pfleger.png" alt="Father Michael Pfleger"></a>
+        <a href="https://www.hamdardhealth.org/" target="_blank"><img src="images/hamdard-helath-alliance.png" alt="Hamdard Health Alliance"></a>
+        <a href="https://www.hanulusa.org/" target="_blank"><img src="images/hanul-family-alliance.png" alt="Hanul Family Alliance"></a>
+        <a href="https://www.ilblackadvocacy.org/" target="_blank"><img src="images/illinois-black-advocacy-innitiative.png" alt="Illinois Black Advocacy Initiative"></a>
+        <a href="https://www.institutochicago.org/" target="_blank"><img src="images/instituto.png" alt="Instituto del Progreso Latino"></a>
+        <a href="https://kidsfirstchicago.org/" target="_blank"><img src="images/k1c-parent-advisory-board.png" alt="K1C Parent Advisory Board"></a>
+        <a href="https://kidsfirstchicago.org/" target="_blank"><img src="images/kids-first-chicago.png" alt="Kids First Chicago"></a>
+        <a href="https://littlevillagecommunitycouncil.org/" target="_blank"><img src="images/little-village-community-council.jpg" alt="Little Village Community Council"></a>
+        <a href="https://mirachicago.org/" target="_blank"><img src="images/mira.png" alt="MIRA"></a>
+        <a href="https://nationalparentsunion.org/" target="_blank"><img src="images/national-parents-union.png" alt="National Parents Union"></a>
+        <a href="https://www.northwestcenterchicago.org/" target="_blank"><img src="images/northwest-center.png" alt="Northwest Center Chicago"></a>
+        <a href="https://pilsenneighbors.org/" target="_blank"><img src="images/pilsen-neighbors-community-council.png" alt="Pilsen Neighbors Community Council"></a>
+        <a href="https://www.puitak.org/" target="_blank"><img src="images/pui-tak-center.png" alt="Pui Tak Center"></a>
+        <a href="https://www.somethinggoodinenglewood.org/" target="_blank"><img src="images/something-good-in-englewood.png" alt="Something Good in Englewood"></a>
+        <a href="https://www.storehousechicago.org/" target="_blank"><img src="images/storehouse-church.png" alt="Storehouse Church"></a>
+        <a href="https://theacademygroup.com/" target="_blank"><img src="images/the-academy-group.png" alt="The Academy Group"></a>
+        <a href="https://resurrectionproject.org/" target="_blank"><img src="images/the-resurrection-project.png" alt="The Resurrection Project"></a>
+        <a href="https://togetherchicago.com/" target="_blank"><img src="images/together-chicago.png" alt="Together Chicago"></a>
+        <a href="https://www.poah.org/woodlawn/education" target="_blank"><img src="images/woodlawn-childrens-promise-community.png" alt="Woodlawn Children's Promise Community"></a>
+        <a href="https://nobleschools.org/" target="_blank"><img src="images/noble-schools.jpg" alt="Noble Schools"></a>
+        <a href="https://caslservice.org/" target="_blank"><img src="images/chinese-american-service-league.jpg" alt="Chinese American Service League"></a>
+        <a href="https://bronzevilleclassical.cps.edu/" target="_blank"><img src="images/bronzeville-classical-elem.jpg" alt="Bronzeville Classical Elementary"></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-strip">
+    <div class="cta-strip-inner">
+      <div class="cta-strip-text">
+        <strong>Get Involved</strong>
+        If your organization is interested in learning more about and joining the Coalition for Authentic Community Engagement, we want to hear from you.
+      </div>
+      <a href="mailto:info@kidsfirstchicago.org" class="cta-btn">Contact Kids First Chicago</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="footer-copy">© Coalition for Authentic Community Engagement 2026. All Rights Reserved.</div>
+      <div class="footer-links">
+        <span class="footer-link" onclick="navTo('process')">Process</span>
+        <span class="footer-link" onclick="navTo('standards')">Standards</span>
+        <span class="footer-link" onclick="navTo('about')">About</span>
+        <span class="footer-link" onclick="navTo('members')">Members</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+
+<!-- ══ PROCESS PAGE ══ -->
+<div id="page-process" class="page">
+  <div class="sub-hero">
+    <div class="wrapper-small wrapper-padding">
+      <div class="breadcrumb">
+        <span class="bc-link" onclick="navTo('home')">Home</span>
+        <span>›</span>
+        <span>Process Framework</span>
+      </div>
+      <h1>A Process Framework for Authentic Engagement</h1>
+      <p>Authentic community engagement is not a single event or a checkbox. It is a disciplined process that requires preparation, honesty, and a genuine willingness to be changed by what you hear.</p>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="wrapper-small wrapper-padding content-area">
+
+      <div class="step-row">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-tag">Before you begin</div>
+          <h3 class="step-title">Determine the level of decision-making power the community should hold.</h3>
+          <p class="step-body">Before any engagement begins, CPS must reference the <span style="color:var(--blue);cursor:pointer;font-weight:600;" onclick="navTo('standards')">Spectrum of Inclusive Partnerships</span> and make an explicit determination: how much influence will the community have over this decision? Some decisions rest with the administration or the Board. Others require meaningful input. And some require genuine deference, placing the outcome in the hands of those who will live with it. This determination must be made transparently, before engagement begins — not after.</p>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-num">2</div>
+        <div>
+          <h3 class="step-title">Match the scale and reach of engagement to the decision.</h3>
+          <p class="step-body">Once the level of community power is established, the scope of engagement must reflect it. Authentic engagement is not complete until the target stakeholders have been meaningfully reached. For major decisions, that may mean thousands of people; for local ones, several hundred. Multiple modalities should be used to maximize diversity and reach, ensuring that participation is not limited to those who are easiest to access.</p>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-num">3</div>
+        <div>
+          <h3 class="step-title">Ensure the community is making an informed decision, not just a reactive one.</h3>
+          <p class="step-body">Authentic engagement requires that community members have sufficient knowledge about the consequences of the options before them. Asking someone what they want and simply acting on it is not engagement — and can be a form of coercion. But asking someone what they want while withholding or limiting information is equally harmful. Genuine engagement takes time and intentionality. The community deserves both the question and the full picture.</p>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-num">4</div>
+        <div>
+          <h3 class="step-title">Resist unnecessary urgency.</h3>
+          <p class="step-body">Decisions made quickly are often made in service of political positioning or the appearance of progress, not in service of the people most affected. When engagement is rushed, the resulting decisions tend to be fragile: they do not reflect broad consensus, they do not hold, and they get reversed when the next administration takes power without doing the same work. The durability of a decision is a direct measure of how authentically it was reached. Do the work. When you have achieved the required scale and depth of engagement, the direction forward becomes clear — and it sticks.</p>
+        </div>
+      </div>
+
+      <div class="step-row">
+        <div class="step-num">5</div>
+        <div>
+          <h3 class="step-title">Never begin an engagement process when the outcome has already been decided.</h3>
+          <p class="step-body">Authentic engagement is a trust fall for decision makers. But the evidence is clear: when communities are given good information and genuine power, they make decisions rooted in the well-being of their children and their neighbors. Trusting the community to decide for itself is not a risk — it is the point. For a district with Chicago's history, it is also an act of anti-racism: a deliberate relinquishment of power toward those it has too often been withheld from.</p>
+        </div>
+      </div>
+
+      <div class="closing-bar">
+        Follow this process and the outcomes <em>will</em> speak for themselves. Decisions reached through authentic engagement carry broad support because they come from the stakeholders themselves. They endure because the people living with them helped build them.
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-strip">
+    <div class="cta-strip-inner">
+      <div class="cta-strip-text">
+        <strong>See who must be at the table</strong>
+        The Stakeholder Inclusion Standards define exactly who must participate for each type of decision.
+      </div>
+      <button class="cta-btn" onclick="navTo('standards')">View Standards →</button>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="footer-copy">© Coalition for Authentic Community Engagement 2026</div>
+      <div class="footer-links">
+        <span class="footer-link" onclick="navTo('home')">Home</span>
+        <span class="footer-link" onclick="navTo('standards')">Standards</span>
+        <span class="footer-link" onclick="navTo('about')">About</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+
+<!-- ══ STANDARDS PAGE ══ -->
+<div id="page-standards" class="page">
+  <div class="sub-hero">
+    <div class="wrapper-small wrapper-padding">
+      <div class="breadcrumb">
+        <span class="bc-link" onclick="navTo('home')">Home</span>
+        <span>›</span>
+        <span>Stakeholder Standards</span>
+      </div>
+      <h1>Stakeholder Inclusion &amp; Engagement Standards</h1>
+      <p>These standards define who must be included in engagement, at what scale, and with what level of influence — based on the scope and nature of the decision.</p>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="wrapper-small wrapper-padding content-area">
+
+      <div class="section-hed">The Spectrum of Inclusive Partnerships</div>
+      <p class="spectrum-intro">Before determining who to engage and at what scale, CPS must first determine how the community will be engaged and what level of influence they will have. The CPS Equity Framework's Spectrum of Inclusive Partnerships provides this foundation. It is CPS's responsibility to identify where a given decision sits on this spectrum <em>before</em> engaging the community. This declaration is part of the engagement process itself — not an afterthought.</p>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <td style="background:var(--black);width:80px;"></td>
+              <th>Listen</th>
+              <th>Inform</th>
+              <th class="accent-col">Consult</th>
+              <th class="accent-col">Involve</th>
+              <th class="accent-col">Collaborate</th>
+              <th class="accent-col">Empower</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="row-label">Goal</td>
+              <td>Provide stakeholders space and time to be heard.</td>
+              <td>Provide balanced information to assist understanding of the problem and options.</td>
+              <td>Obtain stakeholder feedback on analysis, alternatives, and decisions.</td>
+              <td>Work directly with stakeholders to ensure concerns and aspirations are consistently understood.</td>
+              <td>Partner with stakeholders in each aspect of the decision, including developing solutions.</td>
+              <td>Place final decision-making in the hands of the stakeholders.</td>
+            </tr>
+            <tr>
+              <td class="row-label">Promise</td>
+              <td>We will listen to your concerns with the intention of understanding.</td>
+              <td>We will keep you informed.</td>
+              <td>We will listen, acknowledge your concerns, and provide feedback on how input influenced the decision.</td>
+              <td>We will work with you to ensure your concerns are directly reflected in the alternatives developed.</td>
+              <td>We will formulate and prioritize solutions together and incorporate your advice to the maximum extent possible.</td>
+              <td>We will implement what you decide.</td>
+            </tr>
+            <tr>
+              <td class="row-label">Examples</td>
+              <td>Constructivist listening; listening to learn</td>
+              <td>Fact sheets; websites; newsletters; town halls</td>
+              <td>Focus groups; surveys; workshops; deliberate polling</td>
+              <td>Steering committees; participatory decision-making</td>
+              <td>Participatory decision-making; votes; consensus</td>
+              <td>Delegated decisions; consensus; votes</td>
+            </tr>
+            <tr>
+              <td class="row-label">Nature</td>
+              <td colspan="2" style="font-size:13px;color:#5a6a7a;font-style:italic;">Informational / broadcast — not active engagement</td>
+              <td colspan="4" style="font-size:13px;color:var(--blue);font-weight:700;font-style:italic;">Active engagement begins here →</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:13px;color:#5a6a7a;margin-bottom:36px;font-family:Roboto,sans-serif;">Source: CPS Equity Framework — Spectrum of Inclusive Partnerships (adapted from IAP2 International Federation 2018). The stakeholder inclusion and engagement reach standards below apply most fully at Involve, Collaborate, and Empower levels.</p>
+
+      <div class="section-hed">Stakeholder Inclusion by Decision Domain</div>
+      <p style="font-family:Roboto,sans-serif;font-size:16px;color:#2a3a4a;line-height:28px;margin-bottom:16px;">Which stakeholder groups should be included depends on the scope and domain of the decision. Select a decision level below.</p>
+
+      <div class="key-box">
+        <div class="key-item"><div class="key-swatch" style="background:var(--black);"></div><b>Core</b> — 80%+ consensus recommend inclusion</div>
+        <div class="key-item"><div class="key-swatch" style="background:#d6f0fb;border:1px solid #8ecce8;"></div><b>Include</b> — 60–79% consensus</div>
+        <div class="key-item"><div class="key-swatch" style="background:#fef3cd;"></div><b>Context-dependent</b> — 40–59%</div>
+        <div class="key-item"><div class="key-swatch" style="background:#ebebeb;"></div><b>Optional</b> — under 40%</div>
+      </div>
+
+      <div class="domain-tabs">
+        <div class="domain-tab active" onclick="showDomain('class', this)">Class-Level</div>
+        <div class="domain-tab" onclick="showDomain('school', this)">School-Level</div>
+        <div class="domain-tab" onclick="showDomain('region', this)">Region-Level</div>
+        <div class="domain-tab" onclick="showDomain('district', this)">District-Wide</div>
+      </div>
+
+      <div id="domain-class" class="domain-panel active">
+        <div class="domain-desc">Decisions affecting a single classroom or course — e.g. instructional approach, classroom rules, reading materials. Inferred from district and school responses where class-level scenarios were not explicitly tested.</div>
+        <table class="data-table">
+          <thead><tr><th>Stakeholder Group</th><th>Recommendation</th><th>Rationale</th></tr></thead>
+          <tbody>
+            <tr><td>Students</td><td><span class="rec-badge rec-core">Core</span></td><td>Most directly impacted by classroom decisions</td></tr>
+            <tr><td>Parents / Caregivers</td><td><span class="rec-badge rec-core">Core</span></td><td>Primary caregivers with direct interest in classroom environment</td></tr>
+            <tr><td>Teachers &amp; Specialists</td><td><span class="rec-badge rec-core">Core</span></td><td>Decision owner at class level; consistently identified across all scenarios</td></tr>
+            <tr><td>Principals</td><td><span class="rec-badge rec-include">Include</span></td><td>Oversight role; informed but not always driving</td></tr>
+            <tr><td>Non-teaching Staff</td><td><span class="rec-badge rec-optional">Optional</span></td><td>Rarely implicated at class level</td></tr>
+            <tr><td>Local School Council</td><td><span class="rec-badge rec-optional">Optional</span></td><td>Governance role; not typically engaged at classroom scope</td></tr>
+            <tr><td>Community Action Council</td><td><span class="rec-badge rec-optional">Optional</span></td><td>Low relevance at this scope</td></tr>
+            <tr><td>Non-School Affiliated Community Members</td><td><span class="rec-badge rec-optional">Optional</span></td><td>Low relevance at this scope</td></tr>
+            <tr><td>CPS Central Office Staff</td><td><span class="rec-badge rec-optional">Optional</span></td><td>Not engaged at classroom level</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="domain-school" class="domain-panel">
+        <div class="domain-desc">Example: A K-6 elementary school with 400 students facing a decision on budgets — which stakeholder groups should be included?</div>
+        <table class="data-table">
+          <thead><tr><th>Stakeholder Group</th><th>Recommendation</th><th>Rationale</th></tr></thead>
+          <tbody>
+            <tr><td>Students</td><td><span class="rec-badge rec-core">Core</span></td><td>Directly impacted by school-level decisions</td></tr>
+            <tr><td>Parents / Caregivers</td><td><span class="rec-badge rec-core">Core</span></td><td>Strongest community consensus — caregivers most directly affected</td></tr>
+            <tr><td>Teachers &amp; Specialists</td><td><span class="rec-badge rec-core">Core</span></td><td>Consistently identified across all decision levels</td></tr>
+            <tr><td>Principals</td><td><span class="rec-badge rec-core">Core</span></td><td>Consistently identified across all decision levels</td></tr>
+            <tr><td>Non-teaching Staff</td><td><span class="rec-badge rec-include">Include</span></td><td>Strong consensus — operational staff integral to school decisions</td></tr>
+            <tr><td>Local School Council</td><td><span class="rec-badge rec-core">Core</span></td><td>Governance role at school level — high consensus</td></tr>
+            <tr><td>Community Action Council</td><td><span class="rec-badge rec-context">Context-dependent</span></td><td>Include when community resources or partnerships are at stake</td></tr>
+            <tr><td>Non-School Affiliated Community Members</td><td><span class="rec-badge rec-optional">Optional</span></td><td>Include if decision has direct neighborhood impact</td></tr>
+            <tr><td>CPS Central Office Staff</td><td><span class="rec-badge rec-optional">Optional</span></td><td>Rarely relevant at single-school level</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="domain-region" class="domain-panel">
+        <div class="domain-desc">Decisions affecting a cluster of schools or a geographic network — e.g. school consolidation, regional resource allocation, network-level programming.</div>
+        <table class="data-table">
+          <thead><tr><th>Stakeholder Group</th><th>Recommendation</th><th>Rationale</th></tr></thead>
+          <tbody>
+            <tr><td>Students</td><td><span class="rec-badge rec-core">Core</span></td><td>High consensus across school and district levels</td></tr>
+            <tr><td>Parents / Caregivers</td><td><span class="rec-badge rec-core">Core</span></td><td>Highest consensus across all decision levels</td></tr>
+            <tr><td>Teachers &amp; Specialists</td><td><span class="rec-badge rec-core">Core</span></td><td>Most consistent group across all decision levels</td></tr>
+            <tr><td>Principals</td><td><span class="rec-badge rec-core">Core</span></td><td>Strong consensus at both adjacent levels</td></tr>
+            <tr><td>Non-teaching Staff</td><td><span class="rec-badge rec-include">Include</span></td><td>Relevant at school level; include when operationally impacted</td></tr>
+            <tr><td>Local School Council</td><td><span class="rec-badge rec-core">Core</span></td><td>Governance role expands with scope — high consensus</td></tr>
+            <tr><td>Community Action Council</td><td><span class="rec-badge rec-include">Include</span></td><td>More relevant as scope widens; include when partnerships span multiple schools</td></tr>
+            <tr><td>Non-School Affiliated Community Members</td><td><span class="rec-badge rec-context">Context-dependent</span></td><td>Include when decision has multi-neighborhood or regional impact</td></tr>
+            <tr><td>CPS Central Office Staff</td><td><span class="rec-badge rec-include">Include</span></td><td>Becomes relevant as scope grows beyond individual school</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="domain-district" class="domain-panel">
+        <div class="domain-desc">Example: CPS looking to implement a new citywide curriculum for all schools — which stakeholder groups should be included?</div>
+        <table class="data-table">
+          <thead><tr><th>Stakeholder Group</th><th>Recommendation</th><th>Rationale</th></tr></thead>
+          <tbody>
+            <tr><td>Students</td><td><span class="rec-badge rec-core">Core</span></td><td>Directly impacted by district-wide decisions</td></tr>
+            <tr><td>Parents / Caregivers</td><td><span class="rec-badge rec-core">Core</span></td><td>Directly impacted — highest consensus across all levels</td></tr>
+            <tr><td>Teachers &amp; Specialists</td><td><span class="rec-badge rec-core">Core</span></td><td>Most consistent group across all decision levels</td></tr>
+            <tr><td>Principals</td><td><span class="rec-badge rec-core">Core</span></td><td>Directly impacted by district-wide decisions</td></tr>
+            <tr><td>Non-teaching Staff</td><td><span class="rec-badge rec-include">Include</span></td><td>Include at district level — affected by systemwide decisions</td></tr>
+            <tr><td>Local School Council</td><td><span class="rec-badge rec-core">Core</span></td><td>Governance role strongest at district scale — high consensus</td></tr>
+            <tr><td>Community Action Council</td><td><span class="rec-badge rec-include">Include</span></td><td>Notably more relevant at district level; include for systemwide decisions</td></tr>
+            <tr><td>Non-School Affiliated Community Members</td><td><span class="rec-badge rec-context">Context-dependent</span></td><td>Include for decisions with broad or citywide community impact</td></tr>
+            <tr><td>CPS Central Office Staff</td><td><span class="rec-badge rec-include">Include</span></td><td>Clearly more relevant at district scale; include for systemwide policy</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Recommended Reach -->
+      <div style="margin-top:48px;">
+        <div class="section-hed">Recommended Engagement Reach</div>
+        <p style="font-family:Roboto,sans-serif;font-size:16px;color:#2a3a4a;line-height:28px;margin-bottom:12px;">The table below establishes minimum engagement thresholds for each stakeholder group across the four decision domains. These are floors of authentic engagement — the minimum participation required for a process to meet the CACE standard.</p>
+        <p style="font-family:Roboto,sans-serif;font-size:15px;color:#3a4a5a;line-height:26px;margin-bottom:20px;">Two principles govern this framework: smaller groups (Teachers, Principals, LSC members, CPS Central Office) are expected at higher participation rates because near-complete engagement is feasible. For large groups (Students, Parents) at district-wide scale, the percentage floor is intentionally low — but the absolute numbers remain significant. Five percent of 316,224 students is approximately 15,800 people.</p>
+
+        <div style="display:flex;flex-wrap:wrap;gap:16px;margin-bottom:20px;font-family:Roboto,sans-serif;font-size:13px;color:#3a4a5a;">
+          <span><span class="reach-high" style="display:inline;">Example</span> &nbsp;High reach ≥75%</span>
+          <span><span class="reach-mod" style="display:inline;">Example</span> &nbsp;Moderate reach 20–74%</span>
+          <span><span class="reach-low" style="display:inline;">Example</span> &nbsp;Lower floor, context-dependent</span>
+          <span><span class="reach-qual" style="display:inline;">Example</span> &nbsp;Qualitative — no % floor</span>
+        </div>
+
+        <div class="table-wrap">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="min-width:140px;">Stakeholder Group</th>
+                <th>Class-Level</th>
+                <th>School-Level</th>
+                <th>Region-Level</th>
+                <th>District-Wide</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Students</strong></td>
+                <td><span class="reach-high">≥90%</span><span class="reach-note">All directly affected students in that class</span></td>
+                <td><span class="reach-mod">≥50%</span><span class="reach-note">Representative sample; prioritize most impacted grades</span></td>
+                <td><span class="reach-low">≥30%</span><span class="reach-note">Cross-school; ensure geographic &amp; demographic diversity</span></td>
+                <td><span class="reach-low">≥5%</span><span class="reach-note">~15,811 students (316,224 total). Diversity over volume.</span></td>
+              </tr>
+              <tr>
+                <td><strong>Parents / Caregivers</strong></td>
+                <td><span class="reach-high">≥90%</span><span class="reach-note">All parents of students in that class</span></td>
+                <td><span class="reach-mod">≥50%</span><span class="reach-note">Representative sample; prioritize multilingual outreach</span></td>
+                <td><span class="reach-low">≥30%</span><span class="reach-note">Cross-school; remove language &amp; access barriers</span></td>
+                <td><span class="reach-low">≥5%</span><span class="reach-note">~10,000 CPS parents (est. 200,000 total)</span></td>
+              </tr>
+              <tr>
+                <td><strong>Teachers &amp; Specialists</strong></td>
+                <td><span class="reach-high">100%</span><span class="reach-note">All teachers directly involved</span></td>
+                <td><span class="reach-high">≥90%</span><span class="reach-note">Near-total; small group, high direct impact</span></td>
+                <td><span class="reach-mod">≥50%</span><span class="reach-note">Representative sample across schools in region</span></td>
+                <td><span class="reach-mod">≥20%</span><span class="reach-note">~4,966 teachers (24,829 total); include union representation</span></td>
+              </tr>
+              <tr>
+                <td><strong>Principals</strong></td>
+                <td><span class="reach-high">100%</span><span class="reach-note">Principal informed; may not be primary decision-maker</span></td>
+                <td><span class="reach-high">100%</span><span class="reach-note">Single school — full inclusion expected</span></td>
+                <td><span class="reach-high">≥90%</span><span class="reach-note">All principals in the affected region</span></td>
+                <td><span class="reach-mod">≥20%</span><span class="reach-note">~103 principals (516 total)</span></td>
+              </tr>
+              <tr>
+                <td><strong>Non-teaching Staff</strong></td>
+                <td><span class="reach-na">—</span></td>
+                <td><span class="reach-mod">≥50%</span><span class="reach-note">Staff most affected by the specific decision</span></td>
+                <td><span class="reach-low">≥40%</span><span class="reach-note">Cross-school sample of affected staff roles</span></td>
+                <td><span class="reach-mod">≥20%</span><span class="reach-note">Representative sample across staff categories</span></td>
+              </tr>
+              <tr>
+                <td><strong>Local School Council</strong></td>
+                <td><span class="reach-na">—</span></td>
+                <td><span class="reach-high">100%</span><span class="reach-note">Full LSC participation — governing body</span></td>
+                <td><span class="reach-high">≥90%</span><span class="reach-note">All LSCs in affected region; small group</span></td>
+                <td><span class="reach-mod">≥50%</span><span class="reach-note">LSCs at ≥315 schools (630 total)</span></td>
+              </tr>
+              <tr>
+                <td><strong>Community Action Council</strong></td>
+                <td><span class="reach-na">—</span></td>
+                <td><span class="reach-mod">≥50%</span><span class="reach-note">Engage CACs with direct school ties</span></td>
+                <td><span class="reach-mod">≥50%</span><span class="reach-note">Include CACs across affected schools</span></td>
+                <td><span class="reach-qual">Via LSC outreach</span><span class="reach-note">Covered through LSC engagement; include where CACs are active</span></td>
+              </tr>
+              <tr>
+                <td><strong>Non-School Affiliated Community</strong></td>
+                <td><span class="reach-na">—</span></td>
+                <td><span class="reach-na">—</span></td>
+                <td><span class="reach-qual">Relevant orgs</span><span class="reach-note">Neighborhood orgs near affected schools; relevance over % floor</span></td>
+                <td><span class="reach-qual">Relevant orgs</span><span class="reach-note">Citywide orgs; prioritize historically underrepresented communities</span></td>
+              </tr>
+              <tr>
+                <td><strong>CPS Central Office Staff</strong></td>
+                <td><span class="reach-na">—</span></td>
+                <td><span class="reach-na">—</span></td>
+                <td><span class="reach-qual">Dept. leads</span><span class="reach-note">Relevant departmental leads for the decision area; no % floor</span></td>
+                <td><span class="reach-high">≥75%</span><span class="reach-note">All relevant department leads; small group, high accountability expected</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-family:Roboto,sans-serif;font-size:13px;color:#5a6a7a;margin-top:12px;">District population figures sourced from CPS Stats &amp; Facts, 2025–2026 school year (cps.edu/about/stats-facts). Parent total estimated. Methodology developed through a community input process conducted by the Coalition for Authentic Community Engagement in partnership with Kids First Chicago. All figures last updated March 2026.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="footer-copy">© Coalition for Authentic Community Engagement 2026</div>
+      <div class="footer-links">
+        <span class="footer-link" onclick="navTo('home')">Home</span>
+        <span class="footer-link" onclick="navTo('process')">Process</span>
+        <span class="footer-link" onclick="navTo('about')">About</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+
+<!-- ══ ABOUT PAGE ══ -->
+<div id="page-about" class="page">
+  <div class="sub-hero">
+    <div class="wrapper-small wrapper-padding">
+      <div class="breadcrumb">
+        <span class="bc-link" onclick="navTo('home')">Home</span>
+        <span>›</span>
+        <span>About the Coalition</span>
+      </div>
+      <h1>About the Coalition for Authentic Community Engagement</h1>
+      <p>In response to recent actions by the Chicago Board of Education, over two dozen Chicago community and education organizations have united to demand genuine community involvement in CPS policymaking.</p>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="wrapper-small wrapper-padding content-area">
+
+      <div class="about-section">
+        <div class="section-hed">Why We Formed</div>
+        <div class="about-body">
+          <p>The Coalition for Authentic Community Engagement was formed in response to a sustained pattern of major decisions made by the Chicago Board of Education and CPS district leadership without adequate involvement of the communities most affected by those decisions.</p>
+          <p>Our member organizations — representing parents, students, educators, faith communities, immigrant communities, and neighborhood advocates across Chicago — share a common conviction: that authentic engagement is not a courtesy. It is a requirement for decisions to be durable, equitable, and legitimate.</p>
+          <p>The CACE Framework was developed through a community input process conducted in partnership with Kids First Chicago. It reflects direct community voice from 29 respondents — 16 English handwritten surveys, 4 Spanish handwritten surveys, and 9 digital responses — collected from educators, parents, community members, and advocates across Chicago. The definition, process framework, and stakeholder standards are an accountability tool — a standard the Coalition holds CPS to in any engagement process.</p>
+        </div>
+      </div>
+
+      <div class="about-section">
+        <div class="section-hed">Latest Report</div>
+        <div class="news-card">
+          <div class="news-badge">Spring 2026</div>
+          <div>
+            <p class="news-title">Protecting Student Learning in the Era of Immigration Enforcement</p>
+            <p class="news-desc">In March 2026, CACE and Kids First Chicago released a report outlining recommendations to ensure students can get safely to and from school amid a new era of federal immigration enforcement activity in Chicago neighborhoods.</p>
+            <a href="https://kidsfirstchicago.org/publications/safepassage" class="news-link">Read the report at kidsfirstchicago.org →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-section">
+        <div class="section-hed">Coalition Letters to CPS Leadership</div>
+        <p style="font-family:Roboto,sans-serif;font-size:14px;color:#5a6a7a;margin-bottom:20px;"><em>All letters available in English, Spanish, and Simplified Chinese.</em></p>
+
+        <div class="letter-block">
+          <div class="letter-block-head">
+            <h3 class="letter-block-title">Letter to Mayor Johnson on Board Resolution</h3>
+            <div class="letter-block-date">February 2024</div>
+          </div>
+          <p class="letter-block-desc">The Coalition's first public letter, responding to a Board resolution passed without adequate community input, and calling on Mayor Johnson to establish clear standards for authentic engagement before further major decisions are made.</p>
+          <div class="dl-btns">
+            <a href="documents/202402-Coalition-Letter-to-Mayor-Johnson-on-Board-Resolution-Translations.pdf" class="dl-btn"><span class="icon-folder-download" aria-hidden="true"></span> Download (EN / ES / 中文)</a>
+          </div>
+        </div>
+
+        <div class="letter-block">
+          <div class="letter-block-head">
+            <h3 class="letter-block-title">Letter to the CPS Board</h3>
+            <div class="letter-block-date">September 2024</div>
+          </div>
+          <p class="letter-block-desc">Following the summer 2024 board transitions, the Coalition wrote directly to the newly configured Board to introduce the CACE Framework and call for its adoption as a standard for all major decisions going forward.</p>
+          <div class="dl-btns">
+            <a href="documents/202409-Coalition-Letter-to-CPS-Board-Translations.pdf" class="dl-btn"><span class="icon-folder-download" aria-hidden="true"></span> Download (EN / ES / 中文)</a>
+          </div>
+        </div>
+
+        <div class="letter-block">
+          <div class="letter-block-head">
+            <h3 class="letter-block-title">Statement on November ESB Elections &amp; the Opportunity Ahead</h3>
+            <div class="letter-block-date">November 2024</div>
+          </div>
+          <p class="letter-block-desc">Following the November 2024 elected school board elections, the Coalition released a statement welcoming the opportunity ahead and calling on the new Board to make authentic engagement a foundational commitment from its first day.</p>
+          <div class="dl-btns">
+            <a href="documents/20241115-CACE-Statement-on-Nov-ESB-Elections-and-Opportunity-Ahead.pdf" class="dl-btn"><span class="icon-folder-download" aria-hidden="true"></span> Download (EN / ES / 中文)</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-section" style="border:none;padding-bottom:0;">
+        <div class="section-hed">Our Member Organizations</div>
+        <p style="font-family:Roboto,sans-serif;font-size:16px;color:#2a3a4a;line-height:28px;">The Coalition includes over thirty Chicago community and education organizations united around a shared demand for genuine community involvement in CPS policymaking. <span style="color:var(--blue);cursor:pointer;font-weight:600;" onclick="navTo('members')">View the full members page →</span></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta-strip">
+    <div class="cta-strip-inner">
+      <div class="cta-strip-text">
+        <strong>Join the Coalition</strong>
+        If your organization is interested in learning more about and joining CACE, contact Kids First Chicago.
+      </div>
+      <a href="mailto:info@kidsfirstchicago.org" class="cta-btn">info@kidsfirstchicago.org</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="footer-copy">© Coalition for Authentic Community Engagement 2026</div>
+      <div class="footer-links">
+        <span class="footer-link" onclick="navTo('home')">Home</span>
+        <span class="footer-link" onclick="navTo('process')">Process</span>
+        <span class="footer-link" onclick="navTo('standards')">Standards</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+
+<!-- ══ MEMBERS PAGE ══ -->
+<div id="page-members" class="page">
+  <div class="sub-hero">
+    <div class="wrapper-small wrapper-padding">
+      <div class="breadcrumb">
+        <span class="bc-link" onclick="navTo('home')">Home</span>
+        <span>›</span>
+        <span>Coalition Members</span>
+      </div>
+      <h1>Coalition Member Organizations</h1>
+      <p>Over thirty Chicago community and education organizations united in the Coalition for Authentic Community Engagement.</p>
+    </div>
+  </div>
+
+  <div class="page-content">
+    <div class="wrapper-small wrapper-padding content-area">
+      <div class="founding-note">
+        <div class="founding-swatch"></div>
+        Highlighted organizations are founding coalition members (2024)
+      </div>
+      <div class="members-grid">
+        <div class="member-card founding">Kids First Chicago</div>
+        <div class="member-card founding">Chicago Urban League</div>
+        <div class="member-card founding">Instituto del Progreso Latino</div>
+        <div class="member-card founding">Pilsen Neighbors Community Council</div>
+        <div class="member-card founding">Apostolic Church of God</div>
+        <div class="member-card founding">Association House of Chicago</div>
+        <div class="member-card founding">BUILD, Inc.</div>
+        <div class="member-card founding">Coalition for a Better Chinese American Community</div>
+        <div class="member-card founding">CPS Parents for Buses</div>
+        <div class="member-card founding">Education Community Committee</div>
+        <div class="member-card founding">Faith Community of Saint Sabina</div>
+        <div class="member-card founding">Hamdard Health Alliance</div>
+        <div class="member-card founding">Hanul Family Alliance</div>
+        <div class="member-card founding">Illinois Black Advocacy Initiative</div>
+        <div class="member-card">K1C Parent Advisory Board</div>
+        <div class="member-card">Little Village Community Council</div>
+        <div class="member-card">MIRA</div>
+        <div class="member-card">National Parents Union</div>
+        <div class="member-card">Noble Schools</div>
+        <div class="member-card">Northwest Center Chicago</div>
+        <div class="member-card">Phalanx Family Services</div>
+        <div class="member-card">Pui Tak Center</div>
+        <div class="member-card">Something Good in Englewood</div>
+        <div class="member-card">Storehouse Church</div>
+        <div class="member-card">The Academy Group</div>
+        <div class="member-card">The Resurrection Project</div>
+        <div class="member-card">Together Chicago</div>
+        <div class="member-card">Woodlawn Children's Promise Community</div>
+        <div class="member-card">Bronzeville Classical Elementary</div>
+        <div class="member-card">Chinese American Service League</div>
+      </div>
+      <p style="font-family:Roboto,sans-serif;font-size:14px;color:#5a6a7a;margin-top:24px;">Interested in joining? Contact Kids First Chicago at <a href="mailto:info@kidsfirstchicago.org" style="color:var(--blue);font-weight:600;">info@kidsfirstchicago.org</a></p>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="footer-copy">© Coalition for Authentic Community Engagement 2026</div>
+      <div class="footer-links">
+        <span class="footer-link" onclick="navTo('home')">Home</span>
+        <span class="footer-link" onclick="navTo('about')">About</span>
+        <span class="footer-link" onclick="navTo('process')">Process</span>
+        <span class="footer-link" onclick="navTo('standards')">Standards</span>
+      </div>
+    </div>
+  </footer>
+</div>
+
+
+<script>
+  function showPage(id, el) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    if (el) el.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function navTo(id) {
+    const tab = [...document.querySelectorAll('.nav-tab')].find(t =>
+      t.getAttribute('onclick') && t.getAttribute('onclick').includes("'" + id + "'")
+    );
+    showPage(id, tab);
+  }
+
+  function toggleAcc(id) {
+    const body = document.getElementById('ab-' + id);
+    const ch = document.getElementById('ch-' + id);
+    const isOpen = body.classList.contains('open');
+    document.querySelectorAll('.acc-body').forEach(b => b.classList.remove('open'));
+    document.querySelectorAll('.acc-chevron').forEach(c => c.classList.remove('open'));
+    if (!isOpen) { body.classList.add('open'); ch.classList.add('open'); }
+  }
+
+  function showDomain(id, el) {
+    document.querySelectorAll('.domain-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.domain-tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('domain-' + id).classList.add('active');
+    el.classList.add('active');
+  }
+</script>
+
+</body>
+</html>
