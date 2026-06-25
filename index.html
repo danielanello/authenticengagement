@@ -170,9 +170,12 @@
     .dl-btn:hover { background: var(--blue-dark); color: #fff; }
 
     /* Members */
-    .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; margin-top: 20px; }
-    .member-card { background: #f5f8fa; border: 1px solid #dde5ed; border-radius: 6px; padding: 14px; font-family: Roboto, sans-serif; font-size: 13px; font-weight: 500; color: var(--black); text-align: center; line-height: 1.4; display: flex; align-items: center; justify-content: center; min-height: 56px; }
-    .member-card.founding { border-color: var(--blue); background: #e6f2fa; }
+    .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; margin-top: 20px; }
+    .member-card { background: #fff; border: 1px solid #dde5ed; border-radius: 8px; padding: 16px 12px 12px; display: flex; flex-direction: column; align-items: center; gap: 10px; transition: box-shadow .15s; }
+    .member-card:hover { box-shadow: 0 2px 10px rgba(0,0,0,0.09); }
+    .member-card img { width: 100%; max-height: 64px; object-fit: contain; }
+    .member-card span { font-family: Roboto, sans-serif; font-size: 12px; color: #5a6a7a; text-align: center; line-height: 1.4; }
+    .member-card.founding { border-color: var(--blue); background: #f0f7fd; }
     .founding-note { font-family: Roboto, sans-serif; font-size: 12px; color: #5a6a7a; margin-top: 12px; display: flex; align-items: center; gap: 8px; }
     .founding-swatch { width: 12px; height: 12px; border-radius: 2px; background: #e6f2fa; border: 1px solid var(--blue); flex-shrink: 0; }
 
@@ -874,36 +877,36 @@
         Highlighted organizations are founding coalition members (2024)
       </div>
       <div class="members-grid">
-        <div class="member-card founding">Kids First Chicago</div>
-        <div class="member-card founding">Chicago Urban League</div>
-        <div class="member-card founding">Instituto del Progreso Latino</div>
-        <div class="member-card founding">Pilsen Neighbors Community Council</div>
-        <div class="member-card founding">Apostolic Church of God</div>
-        <div class="member-card founding">Association House of Chicago</div>
-        <div class="member-card founding">BUILD, Inc.</div>
-        <div class="member-card founding">Coalition for a Better Chinese American Community</div>
-        <div class="member-card founding">CPS Parents for Buses</div>
-        <div class="member-card founding">Education Community Committee</div>
-        <div class="member-card founding">Faith Community of Saint Sabina</div>
-        <div class="member-card founding">Hamdard Health Alliance</div>
-        <div class="member-card founding">Hanul Family Alliance</div>
-        <div class="member-card founding">Illinois Black Advocacy Initiative</div>
-        <div class="member-card">K1C Parent Advisory Board</div>
-        <div class="member-card">Little Village Community Council</div>
-        <div class="member-card">MIRA</div>
-        <div class="member-card">National Parents Union</div>
-        <div class="member-card">Noble Schools</div>
-        <div class="member-card">Northwest Center Chicago</div>
-        <div class="member-card">Phalanx Family Services</div>
-        <div class="member-card">Pui Tak Center</div>
-        <div class="member-card">Something Good in Englewood</div>
-        <div class="member-card">Storehouse Church</div>
-        <div class="member-card">The Academy Group</div>
-        <div class="member-card">The Resurrection Project</div>
-        <div class="member-card">Together Chicago</div>
-        <div class="member-card">Woodlawn Children's Promise Community</div>
-        <div class="member-card">Bronzeville Classical Elementary</div>
-        <div class="member-card">Chinese American Service League</div>
+        <div class="member-card founding"><img src="images/kids-first-chicago.png" alt="Kids First Chicago"><span>Kids First Chicago</span></div>
+        <div class="member-card founding"><img src="images/chicago-urban-league.png" alt="Chicago Urban League"><span>Chicago Urban League</span></div>
+        <div class="member-card founding"><img src="images/instituto.png" alt="Instituto del Progreso Latino"><span>Instituto del Progreso Latino</span></div>
+        <div class="member-card founding"><img src="images/pilsen-neighbors-community-council.png" alt="Pilsen Neighbors Community Council"><span>Pilsen Neighbors Community Council</span></div>
+        <div class="member-card founding"><img src="images/apostolic-church-of-god.png" alt="Apostolic Church of God"><span>Apostolic Church of God</span></div>
+        <div class="member-card founding"><img src="images/association-house-of-chicago.png" alt="Association House of Chicago"><span>Association House of Chicago</span></div>
+        <div class="member-card founding"><img src="images/build-inc.png" alt="BUILD, Inc."><span>BUILD, Inc.</span></div>
+        <div class="member-card founding"><img src="images/coallition-for-a-better-chinese-american-community.png" alt="Coalition for a Better Chinese American Community"><span>Coalition for a Better Chinese American Community</span></div>
+        <div class="member-card founding"><img src="images/cps-parents-for-buses.jpg" alt="CPS Parents for Buses"><span>CPS Parents for Buses</span></div>
+        <div class="member-card founding"><img src="images/education-community-committee.png" alt="Education Community Committee"><span>Education Community Committee</span></div>
+        <div class="member-card founding"><img src="images/faith-community-of-saint-sabina.png" alt="Faith Community of Saint Sabina"><span>Faith Community of Saint Sabina</span></div>
+        <div class="member-card founding"><img src="images/hamdard-helath-alliance.png" alt="Hamdard Health Alliance"><span>Hamdard Health Alliance</span></div>
+        <div class="member-card founding"><img src="images/hanul-family-alliance.png" alt="Hanul Family Alliance"><span>Hanul Family Alliance</span></div>
+        <div class="member-card founding"><img src="images/illinois-black-advocacy-innitiative.png" alt="Illinois Black Advocacy Initiative"><span>Illinois Black Advocacy Initiative</span></div>
+        <div class="member-card"><img src="images/k1c-parent-advisory-board.png" alt="K1C Parent Advisory Board"><span>K1C Parent Advisory Board</span></div>
+        <div class="member-card"><img src="images/little-village-community-council.jpg" alt="Little Village Community Council"><span>Little Village Community Council</span></div>
+        <div class="member-card"><img src="images/mira.png" alt="MIRA"><span>MIRA</span></div>
+        <div class="member-card"><img src="images/national-parents-union.png" alt="National Parents Union"><span>National Parents Union</span></div>
+        <div class="member-card"><img src="images/noble-schools.jpg" alt="Noble Schools"><span>Noble Schools</span></div>
+        <div class="member-card"><img src="images/northwest-center.png" alt="Northwest Center Chicago"><span>Northwest Center Chicago</span></div>
+        <div class="member-card"><img src="images/phalanx-family-services.png" alt="Phalanx Family Services"><span>Phalanx Family Services</span></div>
+        <div class="member-card"><img src="images/pui-tak-center.png" alt="Pui Tak Center"><span>Pui Tak Center</span></div>
+        <div class="member-card"><img src="images/something-good-in-englewood.png" alt="Something Good in Englewood"><span>Something Good in Englewood</span></div>
+        <div class="member-card"><img src="images/storehouse-church.png" alt="Storehouse Church"><span>Storehouse Church</span></div>
+        <div class="member-card"><img src="images/the-academy-group.png" alt="The Academy Group"><span>The Academy Group</span></div>
+        <div class="member-card"><img src="images/the-resurrection-project.png" alt="The Resurrection Project"><span>The Resurrection Project</span></div>
+        <div class="member-card"><img src="images/together-chicago.png" alt="Together Chicago"><span>Together Chicago</span></div>
+        <div class="member-card"><img src="images/woodlawn-childrens-promise-community.png" alt="Woodlawn Children's Promise Community"><span>Woodlawn Children's Promise Community</span></div>
+        <div class="member-card"><img src="images/bronzeville-classical-elem.jpg" alt="Bronzeville Classical Elementary"><span>Bronzeville Classical Elementary</span></div>
+        <div class="member-card"><img src="images/chinese-american-service-league.jpg" alt="Chinese American Service League"><span>Chinese American Service League</span></div>
       </div>
       <p style="font-family:Roboto,sans-serif;font-size:14px;color:#5a6a7a;margin-top:24px;">Interested in joining? Contact Kids First Chicago at <a href="mailto:info@kidsfirstchicago.org" style="color:var(--blue);font-weight:600;">info@kidsfirstchicago.org</a></p>
     </div>
