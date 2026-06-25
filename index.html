@@ -33,20 +33,22 @@
     .page.active { display: block; }
 
     /* ── Home hero (banner + definition card) ── */
-    .home-banner { display: flex; flex-direction: column; justify-content: flex-end; align-items: center; position: relative; min-height: 460px; margin-bottom: 180px; }
+    .home-banner { display: flex; flex-direction: column; justify-content: flex-end; align-items: center; position: relative; min-height: 580px; margin-bottom: 160px; }
     .home-banner__image { position: absolute; top: 0; bottom: 0; left: 0; right: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; display: block; }
-    .home-banner__card { position: relative; background: var(--blue); padding: 32px; z-index: 2; border-radius: 8px; bottom: -120px; width: 100%; }
-    .home-banner__card .def-eyebrow { font-family: Roboto, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 12px; }
-    .home-banner__card h1 { color: var(--white); font-size: 32px; line-height: 42px; margin-bottom: 16px; }
-    .home-banner__card .def-text { color: rgba(255,255,255,0.88); font-family: Roboto, sans-serif; font-size: 16px; line-height: 28px; margin-bottom: 10px; }
+    .home-banner__card { position: relative; background: var(--blue); padding: 36px 36px 28px; z-index: 2; border-radius: 8px; bottom: -80px; width: 100%; box-shadow: 0 8px 32px rgba(0,0,0,0.22); }
+    .home-banner__card .def-eyebrow { font-family: Roboto, sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-bottom: 16px; }
+    .home-banner__card .def-heading { font-family: Lora, serif; font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #fff; margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid rgba(255,255,255,0.25); display: flex; align-items: center; gap: 12px; }
+    .home-banner__card .def-heading::before { content: ''; display: block; width: 28px; height: 3px; background: #fff; flex-shrink: 0; }
+    .home-banner__card .def-quote-mark { font-family: Lora, serif; font-size: 80px; line-height: 1; color: rgba(255,255,255,0.2); margin-bottom: -8px; }
+    .home-banner__card .def-text { color: rgba(255,255,255,0.92); font-family: Roboto, sans-serif; font-size: 17px; line-height: 30px; margin-bottom: 14px; }
     .home-banner__card .def-text b { color: #fff; font-weight: 700; }
-    .home-banner__card .def-credit { font-size: 13px; color: rgba(255,255,255,0.45); font-style: italic; margin-bottom: 0; margin-top: 4px; }
+    .home-banner__card .def-credit { font-size: 13px; color: rgba(255,255,255,0.45); font-style: italic; margin-bottom: 0; margin-top: 8px; }
 
     /* ── Accordion (used inside blue hero card) ── */
-    .acc-wrap { border-top: 1px solid rgba(255,255,255,0.2); margin-top: 24px; }
-    .acc-btn { width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.15); padding: 14px 0; display: flex; align-items: center; justify-content: space-between; cursor: pointer; color: rgba(255,255,255,0.8); font-family: Roboto, sans-serif; font-size: 15px; font-weight: 500; text-align: left; }
-    .acc-btn:hover { color: #fff; }
-    .acc-chevron { color: rgba(255,255,255,0.6); font-size: 16px; transition: transform .25s; flex-shrink: 0; }
+    .acc-wrap { border-top: 1px solid rgba(255,255,255,0.2); margin-top: 24px; padding-top: 12px; display: flex; flex-direction: column; gap: 8px; }
+    .acc-btn { width: 100%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.22); border-radius: 8px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; cursor: pointer; color: #fff; font-family: Roboto, sans-serif; font-size: 15px; font-weight: 600; text-align: left; transition: background .15s, border-color .15s; }
+    .acc-btn:hover { background: rgba(255,255,255,0.18); border-color: rgba(255,255,255,0.4); }
+    .acc-chevron { color: rgba(255,255,255,0.8); font-size: 18px; transition: transform .25s; flex-shrink: 0; }
     .acc-chevron.open { transform: rotate(180deg); }
     .acc-body { max-height: 0; overflow: hidden; transition: max-height .35s ease; }
     .acc-body.open { max-height: 1200px; }
@@ -188,8 +190,8 @@
     .footer-link:hover { color: rgba(255,255,255,0.9); }
 
     @media (max-width: 640px) {
-      .home-banner { margin-bottom: 240px; }
-      .home-banner__card { bottom: -180px; }
+      .home-banner { margin-bottom: 280px; }
+      .home-banner__card { bottom: -140px; }
       .nav-tiles { flex-direction: column; }
       .nav-tile { border-right: none; border-bottom: 1px solid #dde5ed; }
       .cta-strip-inner { flex-direction: column; }
@@ -223,7 +225,8 @@
       <div class="wrapper-small wrapper-padding">
         <div class="home-banner__card">
           <div class="def-eyebrow">Coalition for Authentic Community Engagement — March 2026</div>
-          <h1>A community-defined standard for how CPS must engage the people it serves.</h1>
+          <div class="def-heading">Definition of Authentic Community Engagement</div>
+          <div class="def-quote-mark">"</div>
           <p class="def-text">
             <b>Authentic Community Engagement</b> is a genuine, inclusive, and ongoing partnership between school leaders and community members that values diverse voices and lived experiences. It ensures accessible, culturally responsive communication and removes barriers to participation. Engagement involves broad stakeholder involvement — especially early in the process — with meaningful two-way communication, transparency, and accountability. It is deliberate about engaging a sufficiently broad and representative group of stakeholders to ensure that <b>no single political, institutional, or special interest group is able to dominate or steer the process toward its own agenda.</b>
           </p>
